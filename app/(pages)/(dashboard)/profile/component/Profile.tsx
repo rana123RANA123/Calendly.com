@@ -1,4 +1,8 @@
-"use client";
+export type PropsProfile = {
+  handleFileChange: (files: FileList | null) => void;
+};
+
+("use client");
 import React from "react";
 import {
   countriesArray,
@@ -20,9 +24,9 @@ import { useSession } from "next-auth/react";
 import ProfilePagePicture from "@/app/(components)/profilePagePicture/ProfilePagePicture";
 import { inviteUser } from "@/app/constants/images";
 
-interface PropsProfile {
-  handleFileChange: (files: FileList | null) => void;
-}
+// interface PropsProfile {
+//   handleFileChange: (files: FileList | null) => void;
+// }
 
 const Profile: React.FC<PropsProfile> = () => {
   const sessionss = useSession();
