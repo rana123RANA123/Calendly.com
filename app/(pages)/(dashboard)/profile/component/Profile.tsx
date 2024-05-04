@@ -5,7 +5,6 @@ import {
   hoursOptions,
   timesArray,
 } from "@/app/(components)/profileData/ProfileData";
-import iso6391 from "iso-639-1";
 import Link from "next/link";
 import ProfileSidebar from "@/app/(components)/profileSidebar/ProfileSidebar";
 import Image from "next/image";
@@ -20,11 +19,7 @@ import { useSession } from "next-auth/react";
 import ProfilePagePicture from "@/app/(components)/profilePagePicture/ProfilePagePicture";
 import { inviteUser } from "@/app/constants/images";
 
-export type PropsProfile = {
-  handleFileChange: (files: FileList | null) => void;
-};
-
-const Profile: React.FC<PropsProfile> = () => {
+const Profile = () => {
   const sessionss = useSession();
   const {
     currentTime,
