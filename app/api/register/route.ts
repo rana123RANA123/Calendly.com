@@ -123,10 +123,9 @@ export async function PUT(req: Request) {
   }
 }
 
-import { IncomingMessage } from "http";
 import { MySession, UserDataSignUp } from "@/app/constants/types";
 
-export async function GET(req: IncomingMessage) {
+export async function GET(req: Request) {
   try {
     const session = (await getServerSession(req as any)) as MySession;
 
@@ -164,7 +163,7 @@ export async function GET(req: IncomingMessage) {
   }
 }
 
-export async function DELETE(req: IncomingMessage) {
+export async function DELETE(req: Request) {
   try {
     const session = (await getServerSession(req as any)) as MySession;
 

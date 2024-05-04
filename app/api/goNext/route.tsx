@@ -1,4 +1,3 @@
-import { IncomingMessage } from "http";
 import { NextResponse } from "next/server";
 import prismadb from "../../libs/prismadb";
 

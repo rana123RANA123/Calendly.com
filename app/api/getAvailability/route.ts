@@ -3,7 +3,7 @@ import prismadb from "../../libs/prismadb";
 import { IncomingMessage } from "http";
 import { getServerSession } from "next-auth";
 
-export async function GET(req: IncomingMessage) {
+export async function GET(req: Request) {
   try {
     const session = (await getServerSession(req as any)) as MySession;
     if (!session) {
