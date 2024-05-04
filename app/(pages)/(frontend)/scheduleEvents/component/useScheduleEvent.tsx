@@ -1,8 +1,6 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router"; // Import useRouter from next/router instead of next/navigation
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import emailjs from "emailjs-com";
 import { SecondFormData } from "@/app/constants/types";
 import { useSession } from "next-auth/react";
@@ -20,28 +18,22 @@ const useScheduleEvent = () => {
     ownerName: null,
   });
 
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const router = useRouter(); // Use useRouter instead of useSearchParams
   const sessionss = useSession();
 
   useEffect(() => {
-    if (searchParams) {
-      const date = searchParams.get("date");
-      const time = searchParams.get("time");
-      const timeZone = searchParams.get("timeZone");
-      const ownerEmail = searchParams.get("ownerEmail");
-      const ownerName = searchParams.get("ownerName");
+    const { query } = router; // Destructure query from the router
+    const { date, time, timeZone, ownerEmail, ownerName } = query; // Extract values from the query object
 
-      setFormData((prev) => ({
-        ...prev,
-        date,
-        time,
-        timeZone,
-        ownerEmail,
-        ownerName,
-      }));
-    }
-  }, [searchParams]);
+    setFormData((prev) => ({
+      ...prev,
+      date: typeof date === "string" ? date : "", // Ensure date is always a string
+      time: typeof time === "string" ? time : "", // Ensure time is always a string
+      timeZone: typeof timeZone === "string" ? timeZone : "", // Ensure timeZone is always a string
+      ownerEmail: typeof ownerEmail === "string" ? ownerEmail : "", // Ensure ownerEmail is always a string
+      ownerName: typeof ownerName === "string" ? ownerName : "", // Ensure ownerName is always a string
+    }));
+  }, [router.query]); // Listen to changes in router.query
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

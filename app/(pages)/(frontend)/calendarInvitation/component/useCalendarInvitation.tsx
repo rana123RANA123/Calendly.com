@@ -1,11 +1,11 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { FormData } from "@/app/constants/types";
 
 const useCalendarInvitation = () => {
-  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { date, time, timeZone, ownerEmail } = router.query;
 
   const session = useSession();
 
@@ -17,21 +17,17 @@ const useCalendarInvitation = () => {
   });
 
   useEffect(() => {
-    if (searchParams) {
-      const date = searchParams.get("date");
-      const time = searchParams.get("time");
-      const timeZone = searchParams.get("timeZone");
-      const ownerEmail = searchParams.get("ownerEmail");
-
-      setFormData((prev) => ({
-        ...prev,
-        date,
-        time,
-        timeZone,
-        ownerEmail,
-      }));
+    if (date && time && timeZone && ownerEmail) {
+      setFormData({
+        date: Array.isArray(date) ? date.join(",") : date,
+        time: Array.isArray(time) ? time.join(",") : time,
+        timeZone: Array.isArray(timeZone) ? timeZone.join(",") : timeZone,
+        ownerEmail: Array.isArray(ownerEmail)
+          ? ownerEmail.join(",")
+          : ownerEmail,
+      });
     }
-  }, [searchParams]);
+  }, [date, time, timeZone, ownerEmail]);
 
   return {
     session,

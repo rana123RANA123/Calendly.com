@@ -1,33 +1,22 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { showToast } from "@/app/constants/toastify";
 
 const useForgotConfirm = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const [formData, setFormData] = useState<any | "">();
-
-  useEffect(() => {
-    if (searchParams) {
-      const email = searchParams.get("email");
-      setFormData(email);
-    }
-  }, [searchParams]);
-
-  const userEmail = formData;
+  const { email } = router.query;
 
   const [password, setPassword] = useState("");
 
   const handleForgotPassword = async () => {
     try {
       const response = await axios.put("/api/forgot", {
-        userEmail,
+        userEmail: email,
         password,
       });
       console.log("User password updated:", response.data);
-      showToast("Forgot Password Successfull", "success");
+      showToast("Forgot Password Successful", "success");
 
       router.push("/login");
     } catch (error) {
@@ -35,6 +24,7 @@ const useForgotConfirm = () => {
       showToast("Please Enter Your Data Correctly", "error");
     }
   };
+
   return {
     handleForgotPassword,
     password,
