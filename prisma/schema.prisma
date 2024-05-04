@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URL")
+}
+
+model FormData {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  anything  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Availability {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  selectedDays  String[]
+  selectedHour1 String?
+  selectedHour2 String?
+  email         String
+}
+
+model User {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  email          String   @unique
+  hashedPassword String
+  fullName       String
+  userName       String
+  image          String
+  welcomeMessage String
+  language       String
+  dateFormat     String
+  timeFormat     String
+  timeZone       String
+  country        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model UpdateUser {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  fullName       String
+  image          String
+  welcomeMessage String
+  language       String
+  dateFormat     String
+  timeFormat     String
+  timeZone       String
+  country        String
+  updatedAt      DateTime @updatedAt
+}
+
+model ScheduleEvent {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  time           String
+  date           String
+  timeZone       String
+  ownerEmail     String
+  ownerName      String
+  email          String
+  additionalInfo String
+  createdAt      DateTime @default(now())
+}
+
+model ProfileData {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  image          String
+  name           String
+  email          String
+  welcomeMessage String
+  language       String
+  dateFormat     String
+  timeFormat     String
+  country        String
+  timeZone       String
+  createdAt      DateTime @default(now())
+}
