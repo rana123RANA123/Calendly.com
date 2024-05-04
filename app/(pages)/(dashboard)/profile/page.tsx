@@ -1,10 +1,9 @@
-import { PropsProfile } from "@/app/constants/types";
 import Profile from "./component/Profile";
 
-const Page: React.FC<PropsProfile> = ({ handleFileChange }) => {
+const Page = () => {
   return (
     <div>
-      <Profile handleFileChange={handleFileChange} />{" "}
+      <Profile />{" "}
     </div>
   );
 };
