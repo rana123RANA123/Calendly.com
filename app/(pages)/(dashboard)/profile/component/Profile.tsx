@@ -17,9 +17,12 @@ import ProfileFieldName from "@/app/(components)/profileFieldName/ProfileFieldNa
 import ClipLoader from "react-spinners/ClipLoader";
 import { BeatLoader } from "react-spinners";
 import { useSession } from "next-auth/react";
-import { PropsProfile } from "@/app/constants/types";
 import ProfilePagePicture from "@/app/(components)/profilePagePicture/ProfilePagePicture";
 import { inviteUser } from "@/app/constants/images";
+
+interface PropsProfile {
+  handleFileChange: (files: FileList | null) => void;
+}
 
 const Profile: React.FC<PropsProfile> = () => {
   const sessionss = useSession();
